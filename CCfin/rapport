@@ -1,44 +1,4 @@
-# 📊 Analyse approfondie du PIB mondial (2000–2023)
 
-## 1. Introduction
-
-### 🎯 Objectif de l’analyse
-Ce rapport vise à analyser les tendances économiques mondiales à travers l’évolution du **Produit Intérieur Brut (PIB)** de plusieurs pays entre **2000 et 2023**.  
-L’objectif est d’identifier les différences de performance, les corrélations et les trajectoires de croissance.
-
-### ⚙️ Méthodologie
-- Collecte des données auprès de la **Banque mondiale**
-- Nettoyage et préparation des données
-- Analyse descriptive et statistique
-- Visualisations graphiques (PIB, croissance, corrélations)
-- Interprétation économique
-
-### 🌍 Pays sélectionnés
-- France 🇫🇷  
-- Allemagne 🇩🇪  
-- États-Unis 🇺🇸  
-- Japon 🇯🇵  
-- Chine 🇨🇳  
-
-### 📅 Période : 2000 à 2023
-
----
-
-## 2. Sources et description des données
-
-- **Source principale :** World Bank Open Data  
-- **Variables analysées :**
-  - `GDP` : Produit Intérieur Brut (USD courants)
-  - `GDP_per_capita` : PIB par habitant (USD)
-  - `GDP_growth` : Taux de croissance annuel (%)
-- **Période couverte :** 2000–2023
-- **Limites :** Données estimées pour les années récentes, effets de change et inflation non corrigés.
-
----
-
-## 3. Code Python complet d’analyse
-
-```python
 # =====================================================================
 # 🧠 ANALYSE APPROFONDIE DU PIB MONDIAL (2000–2023)
 # Auteur : ChatGPT - GPT-5
