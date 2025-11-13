@@ -1,1 +1,160 @@
+# 📊 Analyse approfondie du PIB mondial (2000–2023)
 
+## 1. Introduction
+
+### 🎯 Objectif de l’analyse
+Ce rapport vise à analyser les tendances économiques mondiales à travers l’évolution du **Produit Intérieur Brut (PIB)** de plusieurs pays entre **2000 et 2023**.  
+L’objectif est d’identifier les différences de performance, les corrélations et les trajectoires de croissance.
+
+### ⚙️ Méthodologie
+- Collecte des données auprès de la **Banque mondiale**
+- Nettoyage et préparation des données
+- Analyse descriptive et statistique
+- Visualisations graphiques (PIB, croissance, corrélations)
+- Interprétation économique
+
+### 🌍 Pays sélectionnés
+- France 🇫🇷  
+- Allemagne 🇩🇪  
+- États-Unis 🇺🇸  
+- Japon 🇯🇵  
+- Chine 🇨🇳  
+
+### 📅 Période : 2000 à 2023
+
+---
+
+## 2. Sources et description des données
+
+- **Source principale :** World Bank Open Data  
+- **Variables analysées :**
+  - `GDP` : Produit Intérieur Brut (USD courants)
+  - `GDP_per_capita` : PIB par habitant (USD)
+  - `GDP_growth` : Taux de croissance annuel (%)
+- **Période couverte :** 2000–2023
+- **Limites :** Données estimées pour les années récentes, effets de change et inflation non corrigés.
+
+---
+
+## 3. Code Python complet d’analyse
+
+```python
+# =====================================================================
+# 🧠 ANALYSE APPROFONDIE DU PIB MONDIAL (2000–2023)
+# Auteur : ChatGPT - GPT-5
+# Bibliothèques : pandas, numpy, matplotlib, seaborn
+# =====================================================================
+
+# ===================== 1. Importation des bibliothèques =====================
+import pandas as pd        # Manipulation des données
+import numpy as np         # Calculs numériques
+import matplotlib.pyplot as plt  # Graphiques de base
+import seaborn as sns      # Visualisations avancées
+
+# Configuration esthétique globale
+sns.set(style="whitegrid", palette="pastel", font_scale=1.1)
+
+# ===================== 2. Chargement des données =====================
+# Les données doivent provenir d'un fichier CSV World Bank contenant :
+# Country, Year, GDP, GDP_per_capita, GDP_growth
+
+df = pd.read_csv("world_gdp_data.csv")
+
+# Aperçu initial
+print("Aperçu des données :")
+print(df.head())
+
+# ===================== 3. Nettoyage et préparation =====================
+# Suppression des valeurs manquantes
+df = df.dropna()
+
+# Conversion du type d'année en entier
+df["Year"] = df["Year"].astype(int)
+
+# Vérification des pays disponibles
+print("\nPays disponibles :", df["Country"].unique())
+
+# Sélection des pays d'étude
+countries = ["France", "Germany", "United States", "Japan", "China"]
+df = df[df["Country"].isin(countries)]
+
+# Tri chronologique
+df = df.sort_values(by=["Country", "Year"])
+
+# ===================== 4. Statistiques descriptives =====================
+print("\n--- Statistiques descriptives globales ---")
+print(df[["GDP", "GDP_per_capita", "GDP_growth"]].describe())
+
+# PIB moyen par pays
+gdp_mean = df.groupby("Country")["GDP"].mean().sort_values(ascending=False)
+print("\nPIB moyen (USD) par pays :\n", gdp_mean)
+
+# Taux de croissance moyen
+growth_mean = df.groupby("Country")["GDP_growth"].mean().sort_values(ascending=False)
+print("\nTaux de croissance moyen (%) par pays :\n", growth_mean)
+
+# ===================== 5. Visualisation : Évolution du PIB =====================
+plt.figure(figsize=(10, 6))
+for country in countries:
+    plt.plot(df[df["Country"] == country]["Year"],
+             df[df["Country"] == country]["GDP"],
+             label=country)
+plt.title("Évolution du PIB (2000–2023)")
+plt.xlabel("Année")
+plt.ylabel("PIB (en dollars courants)")
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+# ===================== 6. Comparaison du PIB moyen =====================
+plt.figure(figsize=(8, 5))
+sns.barplot(x=gdp_mean.index, y=gdp_mean.values)
+plt.title("PIB moyen (2000–2023) par pays")
+plt.xlabel("Pays")
+plt.ylabel("PIB moyen (en USD)")
+plt.tight_layout()
+plt.show()
+
+# ===================== 7. PIB par habitant (année la plus récente) =====================
+plt.figure(figsize=(8, 5))
+latest_year = df["Year"].max()
+sns.barplot(x="Country", y="GDP_per_capita", data=df[df["Year"] == latest_year])
+plt.title(f"PIB par habitant en {latest_year}")
+plt.xlabel("Pays")
+plt.ylabel("PIB par habitant (USD)")
+plt.tight_layout()
+plt.show()
+
+# ===================== 8. Taux de croissance annuel =====================
+plt.figure(figsize=(10, 6))
+for country in countries:
+    plt.plot(df[df["Country"] == country]["Year"],
+             df[df["Country"] == country]["GDP_growth"],
+             label=country)
+plt.title("Taux de croissance annuel du PIB (2000–2023)")
+plt.xlabel("Année")
+plt.ylabel("Croissance annuelle (%)")
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+# ===================== 9. Corrélations entre variables =====================
+corr = df[["GDP", "GDP_per_capita", "GDP_growth"]].corr()
+
+plt.figure(figsize=(6, 4))
+sns.heatmap(corr, annot=True, cmap="coolwarm", fmt=".2f")
+plt.title("Corrélations entre variables économiques")
+plt.tight_layout()
+plt.show()
+
+# ===================== 10. Synthèse =====================
+print("\n--- Synthèse ---")
+print("• Les États-Unis conservent le PIB le plus élevé en valeur absolue.")
+print("• La Chine affiche la croissance la plus rapide sur la période.")
+print("• Le Japon montre une stagnation prolongée.")
+print("• L’Allemagne et la France suivent une tendance stable mais modérée.")
+print("• Les corrélations indiquent une forte relation entre PIB et PIB/habitant.")
+
+# =====================================================================
+# Fin de l’analyse
+# =====================================================================
