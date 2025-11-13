@@ -1,8 +1,3 @@
-# =====================================================================
-# 🧠 ANALYSE APPROFONDIE DU PIB MONDIAL (2000–2023)
-# Auteur : ChatGPT - GPT-5
-# Bibliothèques : pandas, numpy, matplotlib, seaborn
-# =====================================================================
 
 # ===================== 1. Importation des bibliothèques =====================
 import pandas as pd        # Manipulation des données
